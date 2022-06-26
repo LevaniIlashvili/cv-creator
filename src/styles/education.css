@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.education {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    gap: 15px;
+}
+
+input {
+    border: none;
+    padding: 5px 0;
+    font-size: 15px;
+    border-radius: 3px;
+    text-indent: 4px;
+}
+
+input:focus {
+    outline: solid;
+    outline-width: 1px;
+}
+
+button {
+    width: 80px;
+    padding: 6px;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(172, 169, 169);
+    color: white;
+    border-radius: 5px;
+    font-weight: 700;
+}
+
+button:hover {
+    color: rgb(172, 169, 169);
+    background-color: rgb(216, 213, 213);
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.date-div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.info-flex {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
