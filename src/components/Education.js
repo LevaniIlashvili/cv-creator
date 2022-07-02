@@ -1,123 +1,98 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "../styles/education.css";
 
-export default class Education extends Component {
-    constructor() {
-        super();
+export default function Education() {
+    const [form, setFormState] = useState("begining");
+    const [university, setUniversity] = useState("");
+    const [titleOfStudy, setTitleOfStudy] = useState("");
+    const [from, setDateFrom] = useState("");
+    const [to, setDateTo] = useState("");
 
-        this.state = {
-            form: "begining",
-            university: "",
-            titleOfStudy: "",
-            from: "",
-            to: ""
-        }
+    const showInputs = () => {
+        setFormState("editing");
     }
 
-    showInputs = () => {
-        this.setState({
-            form: "editing"
-        });
+    const submit = () => {
+        setFormState("submitted");
     }
 
-    submit = () => {
-        this.setState({
-            form: "submitted",
-        })
+    const universityChange = (e) => {
+        setUniversity(e.target.value);
     }
 
-    universityChange = (e) => {
-        this.setState({
-            university: e.target.value
-        })
-        console.log(this.state.university)
+    const titleOfStudyChange = (e) => {
+        setTitleOfStudy(e.target.value);
     }
 
-    titleOfStudyChange = (e) => {
-        this.setState({
-            titleOfStudy: e.target.value
-        })
+    const dateFromChange = (e) => {
+        setDateFrom(e.target.value);
     }
 
-    dateFromChange = (e) => {
-        this.setState({
-            from: e.target.value
-        })
+    const dateToChange = (e) => {
+        setDateTo(e.target.value);
     }
 
-    dateToChange = (e) => {
-        this.setState({
-            to: e.target.value
-        })
+    const edit = () => {
+        setFormState("editing");
     }
 
-    edit = () => {
-        this.setState({
-            form: "editing"
-        })
+    const deleteBtn = () => {
+        setFormState("begining");
     }
 
-    delete = () => {
-        this.setState({
-            form: "begining"
-        })
-    }
-
-    render() {
-        if (this.state.form === "submitted") {
-            return (
-                <div className="education">
-                    <div className="info-flex">
-                        <h4>University:</h4>
-                        <p>{this.state.university}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>Title of study:</h4>
-                        <p>{this.state.titleOfStudy}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>From:</h4>
-                        <p>{this.state.from}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>To:</h4>
-                        <p>{this.state.to}</p>
-                    </div>
-                    <div className="btn-container">
-                        <button onClick={this.edit} >Edit</button>
-                        <button onClick={this.delete} >Delete</button>
-                    </div>
+    if (form === "submitted") {
+        return (
+            <div className="education">
+                <div className="info-flex">
+                    <h4>University:</h4>
+                    <p>{university}</p>
                 </div>
-            )
-        } else if (this.state.form === "editing") {
-            return (
-                <div className="education">
-                    <h3>Education</h3>
-                    <input placeholder="University name" value={this.state.university} onChange={this.universityChange} />
-                    <input placeholder="title of study" value={this.state.titleOfStudy} onChange={this.titleOfStudyChange} />
-                    <div className="date-div">
-                        <p>From:</p>
-                        <input type="date" value={this.state.from} onChange={this.dateFromChange} />
-                    </div>
-                    <div className="date-div">
-                        <p>To:</p>
-                        <input type="date" value={this.state.to} onChange={this.dateToChange} />
-                    </div>
-                    <div className="btn-container">
-                        <button onClick={this.submit} >Add</button>
-                        <button onClick={this.delete} >Delete</button>
-                    </div>
+                <div className="info-flex">
+                    <h4>Title of study:</h4>
+                    <p>{titleOfStudy}</p>
                 </div>
-            )
-        } else if (this.state.form === "begining") {
-            return (
-                <div className="education">
-                    <h3>Education</h3>
-                    <div className="btn-container">
-                        <button onClick={this.showInputs} >Add</button>
-                    </div>
+                <div className="info-flex">
+                    <h4>From:</h4>
+                    <p>{from}</p>
                 </div>
-            )
-        }
+                <div className="info-flex">
+                    <h4>To:</h4>
+                    <p>{to}</p>
+                </div>
+                <div className="btn-container">
+                    <button onClick={edit} >Edit</button>
+                    <button onClick={deleteBtn} >Delete</button>
+                </div>
+            </div>
+        )
+    } else if (form === "editing") {
+        return (
+            <div className="education">
+                <h3>Education</h3>
+                <input placeholder="University name" value={university} onChange={universityChange} />
+                <input placeholder="title of study" value={titleOfStudy} onChange={titleOfStudyChange} />
+                <div className="date-div">
+                    <p>From:</p>
+                    <input type="date" value={from} onChange={dateFromChange} />
+                </div>
+                <div className="date-div">
+                    <p>To:</p>
+                    <input type="date" value={to} onChange={dateToChange} />
+                </div>
+                <div className="btn-container">
+                    <button onClick={submit} >Add</button>
+                    <button onClick={deleteBtn} >Delete</button>
+                </div>
+            </div>
+        )
+    } else if (form === "begining") {
+        return (
+            <div className="education">
+                <h3>Education</h3>
+                <div className="btn-container">
+                    <button onClick={showInputs} >Add</button>
+                </div>
+            </div>
+        )
     }
 }

@@ -1,122 +1,98 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "../styles/job.css";
 
-export default class Job extends Component {
-    constructor() {
-        super();
+export default function Job() {
+    const [companyName, setCompanyName] = useState("");
+    const [positionTitle, setPositionTitle] = useState("");
+    const [from, setDateFrom] = useState("");
+    const [to, setDateTo] = useState("");
+    const [jobForm, setjobForm] = useState("begining");
 
-        this.state = {
-            companyName: "",
-            positionTitle: "",
-            from: "",
-            to: "",
-            jobForm: "begining"
-        }
+    const companyNameChange = (e) => {
+        setCompanyName(e.target.value);
     }
 
-    companyNameChange = (e) => {
-        this.setState({
-            companyName: e.target.value
-        });
+    const positionTitleChange = (e) => {
+        setPositionTitle(e.target.value);
     }
 
-    positionTitleChange = (e) => {
-        this.setState({
-            positionTitle: e.target.value
-        });
+    const dateFromChange = (e) => {
+        setDateFrom(e.target.value);
     }
 
-    dateFromChange = (e) => {
-        this.setState({
-            from: e.target.value
-        });
+    const dateToChange = (e) => {
+        setDateTo(e.target.value);
     }
 
-    dateToChange = (e) => {
-        this.setState({
-            to: e.target.value
-        });
+    const add = () => {
+        setjobForm("submitted");
     }
 
-    add = () => {
-        this.setState({
-            jobForm: "submitted"
-        });
+    const showInputs = () => {
+        setjobForm("editing");
     }
 
-    showInputs = () => {
-        this.setState({
-            jobForm: "editing"
-        });
+    const edit = () => {
+        setjobForm("editing");
     }
 
-    edit = () => {
-        this.setState({
-            jobForm: "editing"
-        });
-    }
-
-    delete = () => {
-        this.setState({
-            jobForm: "begining"
-        });
+    const deleteBtn = () => {
+        setjobForm("begining");
     }
 
 
-    render() {
-        if (this.state.jobForm === "begining") {
-            return (
-                <div>
-                    <h3>Work experience</h3>
-                    <div className="btn-container">
-                        <button onClick={this.showInputs} >Add</button>
-                    </div>
+    if (jobForm === "begining") {
+        return (
+            <div>
+                <h3>Work experience</h3>
+                <div className="btn-container">
+                    <button onClick={showInputs} >Add</button>
                 </div>
-            )
-        } else if (this.state.jobForm === "editing") {
-            return (
-                <div className="job">
-                    <input placeholder="Company name" value={this.state.companyName} onChange={this.companyNameChange} />
-                    <input placeholder="Position title" value={this.state.positionTitle} onChange={this.positionTitleChange} />
-                    <div className="date-div">
-                        <p>From:</p>
-                        <input type="date" value={this.state.from} onChange={this.dateFromChange} />
-                    </div>
-                    <div className="date-div">
-                        <p>To:</p>
-                        <input type="date" value={this.state.to} onChange={this.dateToChange} />
-                    </div>
-                    <div className="btn-container">
-                        <button onClick={this.add} >Add</button>
-                        <button onClick={this.delete} >Delete</button>
-                    </div>
+            </div>
+        )
+    } else if (jobForm === "editing") {
+        return (
+            <div className="job">
+                <input placeholder="Company name" value={companyName} onChange={companyNameChange} />
+                <input placeholder="Position title" value={positionTitle} onChange={positionTitleChange} />
+                <div className="date-div">
+                    <p>From:</p>
+                    <input type="date" value={from} onChange={dateFromChange} />
                 </div>
-            )
-        } else if (this.state.jobForm === "submitted") {
-            return (
-                <div className="job">
-                    <div className="info-flex">
-                        <h4>Company name:</h4>
-                        <p>{this.state.companyName}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>Position title:</h4>
-                        <p>{this.state.positionTitle}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>From:</h4>
-                        <p>{this.state.from}</p>
-                    </div>
-                    <div className="info-flex">
-                        <h4>To:</h4>
-                        <p>{this.state.to}</p>
-                    </div>
-                    <div className="btn-container">
-                        <button onClick={this.edit} >Edit</button>
-                        <button onClick={this.delete} >Delete</button>
-                    </div>
+                <div className="date-div">
+                    <p>To:</p>
+                    <input type="date" value={to} onChange={dateToChange} />
                 </div>
-            )
-        }
+                <div className="btn-container">
+                    <button onClick={add} >Add</button>
+                    <button onClick={deleteBtn} >Delete</button>
+                </div>
+            </div>
+        )
+    } else if (jobForm === "submitted") {
+        return (
+            <div className="job">
+                <div className="info-flex">
+                    <h4>Company name:</h4>
+                    <p>{companyName}</p>
+                </div>
+                <div className="info-flex">
+                    <h4>Position title:</h4>
+                    <p>{positionTitle}</p>
+                </div>
+                <div className="info-flex">
+                    <h4>From:</h4>
+                    <p>{from}</p>
+                </div>
+                <div className="info-flex">
+                    <h4>To:</h4>
+                    <p>{to}</p>
+                </div>
+                <div className="btn-container">
+                    <button onClick={edit} >Edit</button>
+                    <button onClick={deleteBtn} >Delete</button>
+                </div>
+            </div>
+        )
     }
 }
